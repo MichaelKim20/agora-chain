@@ -45,12 +45,12 @@ if "%~1"=="el-node" (
 
         docker run -it ^
         -v %cd%\root:/root ^
-        -p 8545:8545 -p 30303:30303 -p 30303:30303/udp ^
+        -p 6060:6060 -p 8545:8545 -p 30303:30303 -p 30303:30303/udp ^
         --name el-node --rm  ^
         bosagora/agora-el-node:v1.0.1  ^
         --config=/root/config/el/config.toml ^
         --datadir=/root/chain/el ^
-        --syncmode=full
+        --syncmode=full --metrics --metrics.addr=0.0.0.0 --metrics.port=6060
 
     ) else (
 
@@ -68,14 +68,13 @@ if "%~1"=="el-node" (
 
         docker run -it ^
         -v %cd%\root\:/root ^
-        -p 3500:3500 -p 4000:4000 -p 13000:13000 -p 12000:12000/udp ^
+        -p 3500:3500 -p 4000:4000 -p 8080:8080 -p 13000:13000 -p 12000:12000/udp ^
         --name cl-node --rm ^
         bosagora/agora-cl-node:v1.0.3 ^
         --chain-config-file=/root/config/cl/chain-config.yaml ^
         --config-file=/root/config/cl/config.yaml ^
         --p2p-host-ip=%P2P_HOST_IP% ^
-        --checkpoint-sync-url=https://testnet-sync.bosagora.org ^
-        --genesis-beacon-api-url=https://testnet-sync.bosagora.org
+        --monitoring-port=8080
 
     ) else (
 
@@ -125,15 +124,18 @@ if "%~1"=="el-node" (
 
         docker run -it ^
           -v %cd%\root\:/root ^
+          -p 8081:8081 \
           --network="host" ^
           --name cl-validator --rm ^
           bosagora/agora-cl-validator:v1.0.3 ^
           --chain-config-file=/root/config/cl/chain-config.yaml ^
+          --config-file=/root/config/cl/config.yaml ^
           --datadir=/root/chain/cl/ ^
           --accept-terms-of-use ^
           --wallet-dir=/root/wallet ^
           --proposer-settings-file=/root/config/cl/proposer_config.json ^
-          --wallet-password-file=/root/config/cl/password.txt
+          --wallet-password-file=/root/config/cl/password.txt ^
+          --monitoring-port=8081
 
     ) else (
 

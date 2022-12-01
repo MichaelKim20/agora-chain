@@ -4,6 +4,7 @@ services:
         container_name: agora-el-node
         image: bosagora/agora-el-node:v1.0.1
         ports:
+            - "6060:6060"
             - "8545:8545"
             - "30303:30303"
             - "30303:30303/udp"
@@ -14,6 +15,9 @@ services:
             --config=/root/config/el/config.toml
             --datadir=/root/chain/el
             --syncmode=full
+            --metrics
+            --metrics.addr=0.0.0.0
+            --metrics.port=6060
 
     agora-cl-node:
         container_name: agora-cl-node
@@ -21,6 +25,7 @@ services:
         ports:
             - "3500:3500"
             - "4000:4000"
+            - "8080:8080"
             - "13000:13000"
             - "12000:12000/udp"
         volumes:
@@ -31,17 +36,21 @@ services:
             --config-file=/root/config/cl/config.yaml
             --accept-terms-of-use
             --p2p-host-ip=${P2P_HOST_IP}
+            --monitoring-port=8080
         depends_on:
             - agora-el-node
 
     agora-cl-validator:
         container_name: agora-cl-validator
         image: bosagora/agora-cl-validator:v1.0.3
+        ports:
+            - "8081:8081"
         volumes:
             - ./root/:/root
         restart: always
         command:
             --chain-config-file=/root/config/cl/chain-config.yaml
+            --config-file=/root/config/cl/config.yaml
             --datadir=/root/chain/cl/
             --accept-terms-of-use
             --beacon-rpc-gateway-provider=agora-cl-node:3500
@@ -49,6 +58,7 @@ services:
             --wallet-dir=/root/wallet
             --proposer-settings-file=/root/config/cl/proposer_config.json
             --wallet-password-file=/root/config/cl/password.txt
+            --monitoring-port=8081
         depends_on:
             - agora-el-node
             - agora-cl-node
