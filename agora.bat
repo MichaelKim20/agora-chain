@@ -111,7 +111,7 @@ if "%~1"=="el-node" (
      ) else if "%~2"=="voluntary-exit" (
 
         docker run -it ^
-        -v $(pwd)/root/:/root ^
+        -v %cd%\root\:/root ^
         --network=host ^
         --name cl-validator --rm ^
         bosagora/agora-cl-validator:v1.0.3 ^
