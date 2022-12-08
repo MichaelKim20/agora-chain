@@ -2,6 +2,8 @@
 
 - [Abort](#abort)
 
+- [Install Docker Engine](#install-docker-engine)
+
 - [For Linux or MacOS users](#for-linux-or-macos-users)
     - [Install](#install-for-linux-or-macos)
     - [Execution Layer](#execution-layer-for-linux-or-macos)
@@ -24,12 +26,18 @@ We implemented the function of issuing commons budget in Agora-el.
 Agora-cl was forked from Ethereum's consensus client, [prysmaticlabs/prysm](https://github.com/prysmaticlabs/prysm) version 3.1.1.  
 We modified the block confirmation rewards in Agora-cl.
 
+## Install Docker Engine
+
+To run the Agora node, you must first install the Docker Engine.  
+See [here](https://docs.docker.com/engine/install/) for instructions on how to install the Docker Engine  
+https://docs.docker.com/engine/install/
+
 ## For Linux or MacOS users
 
 ### Install for Linux or MacOS
 
 ```shell
-wget https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip
+wget https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip -O testnet.zip
 unzip testnet.zip
 cd agora-chain-testnet
 ```
