@@ -74,7 +74,9 @@ if "%~1"=="el-node" (
         --chain-config-file=/root/config/cl/chain-config.yaml ^
         --config-file=/root/config/cl/config.yaml ^
         --p2p-host-ip=%P2P_HOST_IP% ^
-        --monitoring-port=8080
+        --monitoring-port=8080 ^
+        --checkpoint-sync-url=https://testnet-sync.bosagora.org ^
+        --genesis-beacon-api-url=https://testnet-sync.bosagora.org
 
     ) else (
 
