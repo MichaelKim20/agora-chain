@@ -94,12 +94,12 @@ Run validator
 
 3. Edit wallet password
 ```shell
-vi ./root/config/cl/password.txt
+nano ./root/config/cl/password.txt
 ```
 
 4. Edit transaction fee receiving address
 ```shell
-vi ./root/config/cl/proposer_config.json
+nano ./root/config/cl/proposer_config.json
 ```
 
 5. Run docker-compose
