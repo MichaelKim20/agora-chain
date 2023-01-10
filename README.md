@@ -37,7 +37,7 @@ https://docs.docker.com/engine/install/
 ### Install for Linux or MacOS
 
 ```shell
-wget https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip -O testnet.zip
+wget https://file.bosagora.io/chain/agora-chain-testnet.zip -O testnet.zip
 unzip testnet.zip
 cd agora-chain-testnet
 ```
@@ -118,7 +118,7 @@ nano ./root/config/cl/proposer_config.json
 ### Install for Windows
 
 ```shell
-curl https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip --output testnet.zip
+curl https://file.bosagora.io/chain/agora-chain-testnet.zip --output testnet.zip
 tar -xf testnet.zip
 cd agora-chain-testnet
 ```
