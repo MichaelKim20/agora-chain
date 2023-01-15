@@ -106,7 +106,7 @@ elif [ "$1" = "validator" ]; then
     if [ "$#" -lt 2 ]; then
 
         color "31" "Usage: ./agora.sh validator FLAGS."
-        color "31" "FLAGS can be import, run"
+        color "31" "FLAGS can be run, import, accounts, wallet"
         exit 1
 
     fi
@@ -130,18 +130,6 @@ elif [ "$1" = "validator" ]; then
         --keys-dir=/root/$3 \
         --wallet-dir=/root/wallet
 
-    elif [ "$2" = "voluntary-exit" ]; then
-
-        docker run -it \
-        -v $(pwd)/root/:/root \
-        --network=host \
-        --name cl-validator --rm \
-        bosagora/agora-cl-validator:v1.0.3 \
-        accounts voluntary-exit \
-        --chain-config-file=/root/config/cl/chain-config.yaml \
-        --wallet-dir=/root/wallet \
-        --beacon-rpc-provider=127.0.0.1:4000
-
     elif [ "$2" = "run" ]; then
 
         docker run -it \
@@ -158,20 +146,111 @@ elif [ "$1" = "validator" ]; then
         --wallet-password-file=/root/config/cl/password.txt \
         --monitoring-port=8081
 
+    elif [ "$2" = "accounts" ]; then
+
+        if [ "$#" -lt 3 ]; then
+
+            color "31" "Usage: ./agora.sh validator accounts FLAGS."
+            color "31" "FLAGS can be import, list, voluntary-exit"
+            exit 1
+
+        fi
+
+        if [ "$3" = "import" ]; then
+
+            if [ "$#" -lt 4 ]; then
+
+                color "31" "Usage: ./agora.sh validator accounts import keys-dir."
+                color "31" "keys-dir is the path to a directory where keystores to be imported are stored"
+                exit 1
+
+            fi
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            accounts import \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --keys-dir=/root/$4 \
+            --wallet-dir=/root/wallet
+
+        elif [ "$3" = "list" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --network=host \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            accounts list \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --wallet-dir=/root/wallet
+
+        elif [ "$3" = "voluntary-exit" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --network=host \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            accounts voluntary-exit \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --wallet-dir=/root/wallet \
+            --beacon-rpc-provider=127.0.0.1:4000
+
+        else
+
+            color "31" "FLAGS '$3' is not found!"
+            color "31" "Usage: ./agora.sh validator accounts FLAGS."
+            color "31" "FLAGS can be import, list, voluntary-exit"
+            exit 1
+
+        fi
+
+    elif [ "$2" = "wallet" ]; then
+
+        if [ "$#" -lt 3 ]; then
+
+            color "31" "Usage: ./agora.sh validator wallet FLAGS."
+            color "31" "FLAGS can be create"
+            exit 1
+
+        fi
+
+        if [ "$3" = "create" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            wallet create \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --wallet-dir=/root/wallet
+
+        else
+
+            color "31" "FLAGS '$3' is not found!"
+            color "31" "Usage: ./agora.sh validator wallet FLAGS."
+            color "31" "FLAGS can be create"
+            exit 1
+
+        fi
+
     else
 
         color "31" "FLAGS '$2' is not found!"
         color "31" "Usage: ./agora.sh validator FLAGS."
-        color "31" "FLAGS can be import, voluntary-exit, run"
+        color "31" "FLAGS can be run, import, accounts wallet"
         exit 1
 
     fi
+
 elif [ "$1" = "docker-compose" ]; then
 
     if [ "$#" -lt 2 ]; then
 
         color "31" "Usage: ./agora.sh docker-compose FLAGS."
-        color "31" "FLAGS can be import, run"
+        color "31" "FLAGS can be up, down"
         exit 1
 
     fi

@@ -110,18 +110,6 @@ if "%~1"=="el-node" (
 
         )
 
-     ) else if "%~2"=="voluntary-exit" (
-
-        docker run -it ^
-        -v %cd%\root\:/root ^
-        --network=host ^
-        --name cl-validator --rm ^
-        bosagora/agora-cl-validator:v1.0.3 ^
-        accounts voluntary-exit ^
-        --chain-config-file=/root/config/cl/chain-config.yaml ^
-        --wallet-dir=/root/wallet ^
-        --beacon-rpc-provider=127.0.0.1:4000
-
     ) else if "%~2"=="run" (
 
         docker run -it ^
@@ -139,11 +127,88 @@ if "%~1"=="el-node" (
           --wallet-password-file=/root/config/cl/password.txt ^
           --monitoring-port=8081
 
+    ) else if "%~2"=="accounts" (
+
+        if "%~3"=="import" (
+
+            if "%~4"=="" (
+
+                echo [31mUsage: ./agora.bat validator accounts import keys-dir.[0m
+                echo [31mkeys-dir is the path to a directory where keystores to be imported are stored[0m
+                exit /B 1
+
+            ) else (
+
+                docker run -it ^
+                -v %cd%\root\:/root ^
+                --name cl-validator --rm ^
+                bosagora/agora-cl-validator:v1.0.3 ^
+                accounts import ^
+                --chain-config-file=/root/config/cl/chain-config.yaml ^
+                --keys-dir=/root/%~4 ^
+                --wallet-dir=/root/wallet
+
+            )
+
+         ) else if "%~3"=="list" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            accounts list ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --wallet-dir=/root/wallet
+
+         ) else if "%~3"=="voluntary-exit" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            accounts voluntary-exit ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --wallet-dir=/root/wallet ^
+            --beacon-rpc-provider=127.0.0.1:4000
+
+        ) else (
+
+            echo [31mFLAGS '%~3' is not found![0m
+            echo [31mUsage: ./agora.bat validator accounts FLAGS.[0m
+            echo [31mFLAGS can be import, list, voluntary-exit [0m
+            exit /B 1
+
+        )
+
+    ) else if "%~2"=="wallet" (
+
+        if "%~3"=="create" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            wallet create ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --wallet-dir=/root/wallet
+
+        ) else (
+
+            echo [31mFLAGS '%~3' is not found![0m
+            echo [31mUsage: ./agora.bat validator wallet FLAGS.[0m
+            echo [31mFLAGS can be create [0m
+            exit /B 1
+
+        )
+
     ) else (
 
         echo [31mFLAGS '%~2' is not found![0m
         echo [31mUsage: ./agora.bat validator FLAGS.[0m
-        echo [31mFLAGS can be import, voluntary-exit, run[0m
+        echo [31mFLAGS can be run, accounts, wallet[0m
         exit /B 1
 
     )

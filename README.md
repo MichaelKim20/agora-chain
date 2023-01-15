@@ -37,7 +37,7 @@ https://docs.docker.com/engine/install/
 ### Install for Linux or MacOS
 
 ```shell
-wget https://file.bosagora.io/chain/agora-chain-testnet.zip -O testnet.zip
+wget https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip -O testnet.zip
 unzip testnet.zip
 cd agora-chain-testnet
 ```
@@ -74,30 +74,58 @@ Import your key stores
 ./agora.sh validator import <your key stores folder>
 ```
 
+or
+
+```shell
+./agora.sh validator accounts import <your key stores folder>
+```
+
+List your key stores in your wallet
+
+```shell
+./agora.sh validator accounts list
+```
+
 Run validator
 
 ```shell
 ./agora.sh validator run
 ```
 
+Voluntary exit of the validator
+
+```shell
+./agora.sh validator accounts voluntary-exit
+```
+
 ### Using docker-compose for Linux or MacOS
 
 1. Init the execution node
+
 ```shell
 ./agora.sh el-node init
 ```
 
 2. Import your key stores
+
 ```shell
 ./agora.sh validator import <your key stores folder>
 ```
 
+or
+
+```shell
+./agora.sh validator accounts import <your key stores folder>
+```
+
 3. Edit wallet password
+
 ```shell
 nano ./root/config/cl/password.txt
 ```
 
 4. Edit transaction fee receiving address
+
 ```shell
 nano ./root/config/cl/proposer_config.json
 ```
@@ -112,13 +140,14 @@ nano ./root/config/cl/proposer_config.json
 ./agora.sh docker-compose down
 ```
 
+
 ## For Windows users
 
 
 ### Install for Windows
 
 ```shell
-curl https://file.bosagora.io/chain/agora-chain-testnet.zip --output testnet.zip
+curl  https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip --output testnet.zip
 tar -xf testnet.zip
 cd agora-chain-testnet
 ```
@@ -140,7 +169,6 @@ agora.bat el-node run
 
 ### Consensus Layer for Windows
 
-
 Run consensus node
 
 ```shell
@@ -155,30 +183,58 @@ Import your key stores
 agora.bat validator import <your key stores folder>
 ```
 
+or
+
+```shell
+agora.bat validator accounts import <your key stores folder>
+```
+
+List your key stores in your wallet
+
+```shell
+agora.bat validator accounts list
+```
+
 Run validator
 
 ```shell
 agora.bat validator run
 ```
 
+Voluntary exit of the validator
+
+```shell
+agora.bat validator accounts voluntary-exit
+```
+
 ### Using docker-compose for Windows
 
 1. Init the execution node
+
 ```shell
 agora.bat el-node init
 ```
 
 2. Import your key stores
+
 ```shell
 agora.bat validator import <your key stores folder>
 ```
 
+or
+
+```shell
+agora.bat validator accounts import <your key stores folder>
+```
+
 3. Edit wallet password
+
 ```shell
 notepad ./root/config/cl/password.txt
 ```
 
 4. Edit transaction fee receiving address
+
 ```shell
 notepad ./root/config/cl/proposer_config.json
 ```
