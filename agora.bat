@@ -10,7 +10,7 @@ REM Complain if invalid arguments were provided.
 if "%~1"=="" (
   goto printError
 )
-for %%a in (el-node cl-node validator docker-compose) do (
+for %%a in (el-node cl-node validator docker-compose docker-compose-monitoring) do (
     if %1 equ %%a (
         goto validprocess
     )
@@ -114,7 +114,7 @@ if "%~1"=="el-node" (
 
         docker run -it ^
           -v %cd%\root\:/root ^
-          -p 8081:8081 \
+          -p 8081:8081 ^
           --network="host" ^
           --name cl-validator --rm ^
           bosagora/agora-cl-validator:v1.0.3 ^
@@ -182,6 +182,41 @@ if "%~1"=="el-node" (
 
         )
 
+    ) else if "%~2"=="slashing-protection-history" (
+
+        if "%~3"=="export" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            slashing-protection-history export ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --datadir=/root/chain/cl/ ^
+            --slashing-protection-export-dir=/root/slashing-protection-export
+
+         ) else if "%~3"=="import" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            slashing-protection-history import ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --datadir=/root/chain/cl/ ^
+            --slashing-protection-json-file=/root/slashing-protection-export/slashing_protection.json
+
+        ) else (
+
+            echo [31mFLAGS '%~3' is not found![0m
+            echo [31mUsage: ./agora.bat validator slashing-protection-history FLAGS.[0m
+            echo [31mFLAGS can be import, export [0m
+            exit /B 1
+
+        )
+
     ) else if "%~2"=="wallet" (
 
         if "%~3"=="create" (
@@ -231,11 +266,31 @@ if "%~1"=="el-node" (
         exit /B 1
 
     )
+
+) else if "%~1"=="docker-compose-monitoring" (
+
+    if "%~2"=="up" (
+
+        docker-compose -f docker-compose-monitoring.yml up -d
+
+    ) else if "%~2"=="down" (
+
+        docker-compose -f docker-compose-monitoring.yml down
+
+    ) else (
+
+        echo [31mFLAGS '%~2' is not found![0m
+        echo [31mUsage: ./agora.bat docker-compose-monitoring FLAGS.[0m
+        echo [31mFLAGS can be up down[0m
+        exit /B 1
+
+    )
+
 ) else (
 
     echo [31mProcess '%~1' is not found![0m
     echo [31mUsage: ./agora.bat PROCESS FLAGS.[0m
-    echo [31mPROCESS can be el-node, cl-node, validator, docker-compose[0m
+    echo [31mPROCESS can be el-node, cl-node, validator, docker-compose, docker-compose-monitoring[0m
     exit /B 1
 
 )

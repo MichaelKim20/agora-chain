@@ -13,7 +13,7 @@ function color() {
 
 if [ "$#" -lt 1 ]; then
     color "31" "Usage: ./agora.sh PROCESS FLAGS."
-    color "31" "PROCESS can be el-node, cl-node, validator, docker-compose"
+    color "31" "PROCESS can be el-node, cl-node, validator, docker-compose, docker-compose-monitoring"
     exit 1
 fi
 
@@ -207,6 +207,41 @@ elif [ "$1" = "validator" ]; then
 
         fi
 
+    elif [ "$2" = "slashing-protection-history" ]; then
+
+        if [ "$3" = "export" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --network=host \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            slashing-protection-history export \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --datadir=/root/chain/cl/ \
+            --slashing-protection-export-dir=/root/slashing-protection-export
+
+        elif [ "$3" = "import" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --network=host \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            slashing-protection-history import \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --datadir=/root/chain/cl/ \
+            --slashing-protection-json-file=/root/slashing-protection-export/slashing_protection.json
+
+        else
+
+            color "31" "FLAGS '$3' is not found!"
+            color "31" "Usage: ./agora.sh validator slashing-protection-history FLAGS."
+            color "31" "FLAGS can be import, export"
+            exit 1
+
+        fi
+
     elif [ "$2" = "wallet" ]; then
 
         if [ "$#" -lt 3 ]; then
@@ -274,11 +309,40 @@ elif [ "$1" = "docker-compose" ]; then
 
     fi
 
+elif [ "$1" = "docker-compose-monitoring" ]; then
+
+    if [ "$#" -lt 2 ]; then
+
+        color "31" "Usage: ./agora.sh docker-compose-monitoring FLAGS."
+        color "31" "FLAGS can be up, down"
+        exit 1
+
+    fi
+
+    export P2P_HOST_IP=$(curl -s https://ifconfig.me/ip)
+
+    if [ "$2" = "up" ]; then
+
+      docker-compose -f docker-compose-monitoring.yml up -d
+
+    elif [ "$2" = "down" ]; then
+
+      docker-compose -f docker-compose-monitoring.yml down
+
+    else
+
+        color "31" "FLAGS '$2' is not found!"
+        color "31" "Usage: ./agora.sh docker-compose-monitoring FLAGS."
+        color "31" "FLAGS can be up, down"
+        exit 1
+
+    fi
+
 else
 
     color "31" "Process '$1' is not found!"
     color "31" "Usage: ./agora.sh PROCESS FLAGS."
-    color "31" "PROCESS can be el-node, cl-node, validator, docker-compose"
+    color "31" "PROCESS can be el-node, cl-node, validator, docker-compose, docker-compose-monitoring"
     exit 1
 
 fi

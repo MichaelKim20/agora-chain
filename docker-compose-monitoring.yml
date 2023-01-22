@@ -63,3 +63,40 @@ services:
         depends_on:
             - agora-el-node
             - agora-cl-node
+
+    node_exporter:
+        container_name: node_exporter
+        image: quay.io/prometheus/node-exporter:latest
+        ports:
+            - "9100:9100"
+        restart: always
+
+    prometheus:
+        container_name: prometheus
+        hostname: prometheus
+        image: prom/prometheus
+        ports:
+            - "9090:9090"
+        volumes:
+            - ./monitoring/prometheus/:/etc/prometheus
+            - prometheus_data:/prometheus
+        restart: always
+        command:
+            --web.enable-lifecycle
+            --config.file=/etc/prometheus/config.yml
+
+    grafana:
+        container_name: grafana
+        hostname: grafana
+        image: grafana/grafana
+        depends_on:
+            - prometheus
+        ports:
+            - "3000:3000"
+        volumes:
+            - grafana_data:/var/lib/grafana
+        restart: always
+
+volumes:
+    prometheus_data:
+    grafana_data:

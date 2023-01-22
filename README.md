@@ -5,17 +5,19 @@
 - [Install Docker Engine](#install-docker-engine)
 
 - [For Linux or MacOS users](#for-linux-or-macos-users)
-    - [Install](#install-for-linux-or-macos)
-    - [Execution Layer](#execution-layer-for-linux-or-macos)
-    - [Consensus Layer](#consensus-layer-for-linux-or-macos)
-    - [Using docker-compose](#using-docker-compose-for-linux-or-macos)
+  - [Install](#install-for-linux-or-macos)
+  - [Upgrade](#upgrade-for-linux-or-macos)
+  - [Execution Layer](#execution-layer-for-linux-or-macos)
+  - [Consensus Layer](#consensus-layer-for-linux-or-macos)
+  - [Using docker-compose](#using-docker-compose-for-linux-or-macos)
 
 
 - [For Windows users](#for-windows-users)
-    - [Install](#install-for-windows)
-    - [Execution Layer](#execution-layer-for-windows)
-    - [Consensus Layer](#consensus-layer-for-windows)
-    - [Using docker-compose](#using-docker-compose-for-windows)
+  - [Install](#install-for-windows)
+  - [Upgrade](#upgrade-for-windows)
+  - [Execution Layer](#execution-layer-for-windows)
+  - [Consensus Layer](#consensus-layer-for-windows)
+  - [Using docker-compose](#using-docker-compose-for-windows)
 
 ## Abort
 [Agora-el](https://github.com/bosagora/agora-el) is an execution client that has an EVM.  
@@ -40,6 +42,12 @@ https://docs.docker.com/engine/install/
 wget https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip -O testnet.zip
 unzip testnet.zip
 cd agora-chain-testnet
+```
+
+### Upgrade for Linux or MacOS
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/bosagora/agora-chain/testnet/upgrade.sh)"
 ```
 
 ### Execution Layer for Linux or MacOS
@@ -125,7 +133,6 @@ nano ./root/config/cl/password.txt
 ```
 
 4. Edit transaction fee receiving address
-
 ```shell
 nano ./root/config/cl/proposer_config.json
 ```
@@ -140,6 +147,46 @@ nano ./root/config/cl/proposer_config.json
 ./agora.sh docker-compose down
 ```
 
+### Using docker-compose with monitoring for Linux or MacOS
+
+1. Init the execution node
+
+```shell
+./agora.sh el-node init
+```
+
+2. Import your key stores
+
+```shell
+./agora.sh validator import <your key stores folder>
+```
+
+or
+
+```shell
+./agora.sh validator accounts import <your key stores folder>
+```
+
+3. Edit wallet password
+
+```shell
+nano ./root/config/cl/password.txt
+```
+
+4. Edit transaction fee receiving address
+```shell
+nano ./root/config/cl/proposer_config.json
+```
+
+5. Run docker-compose
+```shell
+./agora.sh docker-compose-monitoring up
+```
+
+6. Stop docker-compose
+```shell
+./agora.sh docker-compose-monitoring down
+```
 
 ## For Windows users
 
@@ -147,9 +194,16 @@ nano ./root/config/cl/proposer_config.json
 ### Install for Windows
 
 ```shell
-curl  https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip --output testnet.zip
+curl -f -s -S -L -o testnet.zip https://github.com/bosagora/agora-chain/archive/refs/heads/testnet.zip
 tar -xf testnet.zip
 cd agora-chain-testnet
+```
+
+### Upgrade for Windows
+
+```shell
+curl -f -s -S -L -o upgrade.bat https://raw.githubusercontent.com/bosagora/agora-chain/testnet/upgrade.bat
+upgrade.bat
 ```
 
 ### Execution Layer for Windows
@@ -234,7 +288,6 @@ notepad ./root/config/cl/password.txt
 ```
 
 4. Edit transaction fee receiving address
-
 ```shell
 notepad ./root/config/cl/proposer_config.json
 ```
@@ -247,4 +300,46 @@ agora.bat docker-compose up
 6. Stop docker-compose
 ```shell
 agora.bat docker-compose down
+```
+
+### Using docker-compose with monitoring for Windows
+
+1. Init the execution node
+
+```shell
+agora.bat el-node init
+```
+
+2. Import your key stores
+
+```shell
+agora.bat validator import <your key stores folder>
+```
+
+or
+
+```shell
+agora.bat validator accounts import <your key stores folder>
+```
+
+3. Edit wallet password
+
+```shell
+notepad ./root/config/cl/password.txt
+```
+
+4. Edit transaction fee receiving address
+
+```shell
+notepad ./root/config/cl/proposer_config.json
+```
+
+5. Run docker-compose
+```shell
+agora.bat docker-compose-monitoring up
+```
+
+6. Stop docker-compose
+```shell
+agora.bat docker-compose-monitoring down
 ```
