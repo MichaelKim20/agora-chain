@@ -144,6 +144,7 @@ if "%~1"=="el-node" (
                 --name cl-validator --rm ^
                 bosagora/agora-cl-validator:v1.0.3 ^
                 accounts import ^
+                --accept-terms-of-use ^
                 --chain-config-file=/root/config/cl/chain-config.yaml ^
                 --keys-dir=/root/%~4 ^
                 --wallet-dir=/root/wallet
@@ -158,6 +159,7 @@ if "%~1"=="el-node" (
             --name cl-validator --rm ^
             bosagora/agora-cl-validator:v1.0.3 ^
             accounts list ^
+            --accept-terms-of-use ^
             --chain-config-file=/root/config/cl/chain-config.yaml ^
             --wallet-dir=/root/wallet
 
@@ -169,15 +171,30 @@ if "%~1"=="el-node" (
             --name cl-validator --rm ^
             bosagora/agora-cl-validator:v1.0.3 ^
             accounts voluntary-exit ^
+            --accept-terms-of-use ^
             --chain-config-file=/root/config/cl/chain-config.yaml ^
             --wallet-dir=/root/wallet ^
             --beacon-rpc-provider=127.0.0.1:4000
+
+         ) else if "%~3"=="backup" (
+
+            docker run -it ^
+            -v %cd%\root\:/root ^
+            --network=host ^
+            --name cl-validator --rm ^
+            bosagora/agora-cl-validator:v1.0.3 ^
+            accounts backup ^
+            --accept-terms-of-use ^
+            --chain-config-file=/root/config/cl/chain-config.yaml ^
+            --wallet-dir=/root/wallet ^
+            --wallet-password-file=/root/config/cl/password.txt ^
+            --backup-dir=/root/backup-wallet
 
         ) else (
 
             echo [31mFLAGS '%~3' is not found![0m
             echo [31mUsage: ./agora.bat validator accounts FLAGS.[0m
-            echo [31mFLAGS can be import, list, voluntary-exit [0m
+            echo [31mFLAGS can be import, list, voluntary-exit, backup [0m
             exit /B 1
 
         )

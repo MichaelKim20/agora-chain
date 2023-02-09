@@ -181,6 +181,7 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             accounts import \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --keys-dir=/root/$4 \
             --wallet-dir=/root/wallet
@@ -193,6 +194,7 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             accounts list \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --wallet-dir=/root/wallet
 
@@ -204,15 +206,30 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             accounts voluntary-exit \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --wallet-dir=/root/wallet \
             --beacon-rpc-provider=127.0.0.1:4000
 
+        else if [ "$3" = "backup" ]; then
+
+            docker run -it \
+            -v $(pwd)/root/:/root \
+            --name cl-validator --rm \
+            bosagora/agora-cl-validator:v1.0.3 \
+            accounts backup \
+            --accept-terms-of-use \
+            --chain-config-file=/root/config/cl/chain-config.yaml \
+            --wallet-dir=/root/wallet \
+            --wallet-password-file=/root/config/cl/password.txt \
+            --backup-dir=/root/backup-wallet
+
+            sudo chown $USER root/backup-wallet -R
         else
 
             color "31" "FLAGS '$3' is not found!"
             color "31" "Usage: ./agora.sh validator accounts FLAGS."
-            color "31" "FLAGS can be import, list, voluntary-exit"
+            color "31" "FLAGS can be import, list, voluntary-exit, backup"
             exit 1
 
         fi
@@ -227,9 +244,12 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             slashing-protection-history export \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --datadir=/root/chain/cl/ \
             --slashing-protection-export-dir=/root/slashing-protection-export
+
+            sudo chown $USER root/slashing-protection-export -R
 
         elif [ "$3" = "import" ]; then
 
@@ -239,6 +259,7 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             slashing-protection-history import \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --datadir=/root/chain/cl/ \
             --slashing-protection-json-file=/root/slashing-protection-export/slashing_protection.json
@@ -269,6 +290,7 @@ elif [ "$1" = "validator" ]; then
             --name cl-validator --rm \
             bosagora/agora-cl-validator:v1.0.3 \
             wallet create \
+            --accept-terms-of-use \
             --chain-config-file=/root/config/cl/chain-config.yaml \
             --wallet-dir=/root/wallet
 
