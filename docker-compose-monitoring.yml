@@ -14,7 +14,7 @@ services:
         command:
             --config=/root/config/el/config.toml
             --datadir=/root/chain/el
-            --syncmode=full
+            --syncmode=snap
             --metrics
             --metrics.addr=0.0.0.0
             --metrics.port=6060

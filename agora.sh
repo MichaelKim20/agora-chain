@@ -59,7 +59,7 @@ if [ "$1" = "el-node" ]; then
         bosagora/agora-el-node:v1.0.1 \
         --config=/root/config/el/config.toml \
         --datadir=/root/chain/el \
-        --syncmode=light --metrics --metrics.addr=0.0.0.0 --metrics.port=6060
+        --syncmode=snap --metrics --metrics.addr=0.0.0.0 --metrics.port=6060
 
     else
 
