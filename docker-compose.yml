@@ -15,6 +15,7 @@ services:
             --config=/root/config/el/config.toml
             --datadir=/root/chain/el
             --syncmode=snap
+            --maxpeers=100
             --metrics
             --metrics.addr=0.0.0.0
             --metrics.port=6060
@@ -43,6 +44,7 @@ services:
             --p2p-host-ip=${P2P_HOST_IP}
             --monitoring-port=8080
             --disable-peer-scorer=true
+            --p2p-max-peers=100
         depends_on:
             - agora-el-node
         logging:
