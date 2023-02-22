@@ -52,7 +52,7 @@ cd agora-chain-mainnet
 ### Upgrade for Linux or MacOS
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/bosagora/agora-chain/mainnet/upgrade.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/MichaelKim20/agora-chain/mainnet-light/upgrade.sh)"
 ```
 
 ### Execution Layer for Linux or MacOS
@@ -207,7 +207,7 @@ cd agora-chain-mainnet
 ### Upgrade for Windows
 
 ```shell
-curl -f -s -S -L -o upgrade.bat https://raw.githubusercontent.com/bosagora/agora-chain/mainnet/upgrade.bat
+curl -f -s -S -L -o upgrade.bat https://raw.githubusercontent.com/MichaelKim20/agora-chain/mainnet-light/upgrade.bat
 upgrade.bat
 ```
 
