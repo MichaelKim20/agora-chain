@@ -5,9 +5,8 @@ function create_folder() {
 }
 
 function download_file() {
-  wget https://raw.githubusercontent.com/bosagora/agora-chain/mainnet/$@ -O $@
+  wget https://raw.githubusercontent.com/MichaelKim20/agora-chain/mainnet-light/$@ -O $@
 }
-
 create_folder monitoring
 create_folder monitoring/dashboard
 create_folder monitoring/prometheus
