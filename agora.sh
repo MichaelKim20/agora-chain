@@ -61,6 +61,16 @@ if [ "$1" = "el-node" ]; then
         --datadir=/root/chain/el \
         --syncmode=snap --metrics --metrics.addr=0.0.0.0 --metrics.port=6060
 
+    elif [ "$2" = "attach" ]; then
+
+        docker run -it \
+        -v $(pwd)/root:/root \
+        --name el-node-attach --rm \
+        bosagora/agora-el-node:v1.0.1 \
+        --config=/root/config/el/config.toml \
+        --datadir=/root/chain/el \
+        attach /root/chain/el/geth.ipc
+
     else
 
         color "31" "FLAGS '$2' is not found!"
