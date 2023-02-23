@@ -225,6 +225,7 @@ elif [ "$1" = "validator" ]; then
             --backup-dir=/root/backup-wallet
 
             sudo chown $USER root/backup-wallet -R
+
         else
 
             color "31" "FLAGS '$3' is not found!"
