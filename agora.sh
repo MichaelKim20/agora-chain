@@ -211,7 +211,7 @@ elif [ "$1" = "validator" ]; then
             --wallet-dir=/root/wallet \
             --beacon-rpc-provider=127.0.0.1:4000
 
-        else if [ "$3" = "backup" ]; then
+        elif [ "$3" = "backup" ]; then
 
             docker run -it \
             -v $(pwd)/root/:/root \
@@ -225,6 +225,7 @@ elif [ "$1" = "validator" ]; then
             --backup-dir=/root/backup-wallet
 
             sudo chown $USER root/backup-wallet -R
+
         else
 
             color "31" "FLAGS '$3' is not found!"
