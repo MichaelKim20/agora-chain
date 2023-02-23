@@ -15,7 +15,6 @@ services:
             --config=/root/config/el/config.toml
             --datadir=/root/chain/el
             --syncmode=snap
-            --maxpeers=100
             --metrics
             --metrics.addr=0.0.0.0
             --metrics.port=6060
@@ -44,9 +43,36 @@ services:
             --p2p-host-ip=${P2P_HOST_IP}
             --monitoring-port=8080
             --disable-peer-scorer=true
-            --p2p-max-peers=100
         depends_on:
             - agora-el-node
+        logging:
+            driver: "json-file"
+            options:
+                max-file: "5"
+                max-size: "100m"
+
+    agora-cl-validator:
+        container_name: agora-cl-validator
+        image: bosagora/agora-cl-validator:v1.0.3
+        ports:
+            - "8081:8081"
+        volumes:
+            - ./root/:/root
+        restart: always
+        command:
+            --chain-config-file=/root/config/cl/chain-config.yaml
+            --config-file=/root/config/cl/config.yaml
+            --datadir=/root/chain/cl/
+            --accept-terms-of-use
+            --beacon-rpc-gateway-provider=agora-cl-node:3500
+            --beacon-rpc-provider=agora-cl-node:4000
+            --wallet-dir=/root/wallet
+            --proposer-settings-file=/root/config/cl/proposer_config.json
+            --wallet-password-file=/root/config/cl/password.txt
+            --monitoring-port=8081
+        depends_on:
+            - agora-el-node
+            - agora-cl-node
         logging:
             driver: "json-file"
             options:
