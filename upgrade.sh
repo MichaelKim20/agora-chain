@@ -5,7 +5,7 @@ function create_folder() {
 }
 
 function download_file() {
-  wget https://raw.githubusercontent.com/MichaelKim20/agora-chain/mainnet-light/$@ -O $@
+  wget https://raw.githubusercontent.com/MichaelKim20/agora-chain/mainnet-staking/$@ -O $@
 }
 create_folder monitoring
 create_folder monitoring/dashboard
