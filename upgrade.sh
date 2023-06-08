@@ -5,7 +5,7 @@ function create_folder() {
 }
 
 function download_file() {
-  wget https://raw.githubusercontent.com/bosagora/agora-chain/devnet/$@ -O $@
+  wget https://raw.githubusercontent.com/bosagora/agora-chain/devnet/"$*" -q -O "$*"
 }
 
 create_folder monitoring

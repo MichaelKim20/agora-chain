@@ -61,80 +61,106 @@ cd agora-chain-mainnet
 
 ### Execution Layer for Linux or MacOS
 
-Init execution node
+- Init execution node
 
-```shell
-./agora.sh el-node init
-```
+  ```shell
+  ./agora.sh el-node init
+  ```
 
-Run execution node
+- Run execution node
 
-```shell
-./agora.sh el-node run
-```
+  ```shell
+  ./agora.sh el-node run
+  ```
 
 ### Consensus Layer for Linux or MacOS
 
-Run consensus node
+- Run consensus node
 
-```shell
-./agora.sh cl-node run
-```
+  ```shell
+  ./agora.sh cl-node run
+  ```
 
-### Validator for Linux or MacOS
+### Validator accounts for Linux or MacOS
 
-Import your key stores
+- Import your key stores
 
-```shell
-./agora.sh validator import <your key stores folder>
-```
+  ```shell
+  ./agora.sh validator import <your key stores folder>
+  ```
+  
+  or
 
-or
+  ```shell
+  ./agora.sh validator accounts import <your key stores folder>
+  ```
 
-```shell
-./agora.sh validator accounts import <your key stores folder>
-```
 
-List your key stores in your wallet
+- List your key stores in your wallet
 
-```shell
-./agora.sh validator accounts list
-```
+  ```shell
+  ./agora.sh validator accounts list
+  ```
 
-Run validator
 
-```shell
-./agora.sh validator run
-```
+- Backup your key stores in your wallet
 
-Voluntary exit of the validator
+  ```shell
+  ./agora.sh validator accounts backup <folder>
+  ```
+  `<folder>` is where the backup key is stored. The default folder is `./backup-wallet`
 
-```shell
-./agora.sh validator voluntary-exit
-```
+### Validator execution for Linux or MacOS
 
-Generate the SignedBLSToExecutionChange data to enable withdrawals
+- Run validator
 
-```shell
-./agora.sh validator generate-bls-to-execution-change <SignedBLSToExecutionChange data folder>
-```
-The default data folder is `./root/bls_to_execution_changes`
+  ```shell
+  ./agora.sh validator run
+  ```
 
-The data folder in the command below is `./root/bls2exec`
-```shell
-./agora.sh validator generate-bls-to-execution-change bls2exec
-```
+### Validator exit for Linux or MacOS
 
-Send the SignedBLSToExecutionChange data to enable withdrawals
-```shell
-./agora.sh validator withdraw <SignedBLSToExecutionChange data folder>
-```
-The default data folder is `./root/bls_to_execution_changes`
+- Voluntary exit of the validator
 
-The data folder in the command below is `./root/bls2exec`
-```shell
-./agora.sh validator withdraw bls2exec
-```
+  ```shell
+  ./agora.sh validator exit
+  ```
+
+### Validator withdrawals for Linux or MacOS
+
+- Generate the SignedBLSToExecutionChange data to enable withdrawals
+
+  ```shell
+  ./agora.sh validator generate-bls-to-execution-change <folder>
+  ```
+  `<folder>` is where the SignedBLSToExecutionChange data is stored. The default folder is `./bls_to_execution_changes`
+
+
+- Send the SignedBLSToExecutionChange data to enable withdrawals
+
+  ```shell
+  ./agora.sh validator withdraw <folder>
+  ```
+  `<folder>` is where the SignedBLSToExecutionChange data is stored. The default folder is `./bls_to_execution_changes`
+
+
+### Validator export & import slashing protection history for Linux or MacOS
+
+- export
+
+  ```shell
+  ./agora.sh validator slashing-protection-history export <folder>
+  ```
+  `<folder>` is where the slashing protection history data is stored. The default folder is `./slashing-protection-export`
+
+
+- import
+
+  ```shell
+  ./agora.sh validator slashing-protection-history import <folder>
+  ```
+  `<folder>` is where the slashing protection history data is stored. The default folder is `./slashing-protection-export`
+
 
 ### Using docker-compose for Linux or MacOS
 
@@ -243,80 +269,106 @@ upgrade.bat
 
 ### Execution Layer for Windows
 
-Init execution node
+- Init execution node
 
-```shell
-agora.bat el-node init
-```
+  ```shell
+  agora.bat el-node init
+  ```
 
-Run execution node
-
-```shell
-agora.bat el-node run
-```
+- Run execution node
+  
+  ```shell
+  agora.bat el-node run
+  ```
 
 ### Consensus Layer for Windows
 
-Run consensus node
-
-```shell
-agora.bat cl-node run
-```
+- Run consensus node
+  
+  ```shell
+  agora.bat cl-node run
+  ```
 
 ### Validator for Windows
 
-Import your key stores
+- Import your key stores
+  
+  ```shell
+  agora.bat validator import <your key stores folder>
+  ```
+  
+  or
+  
+  ```shell
+  agora.bat validator accounts import <your key stores folder>
+  ```
 
-```shell
-agora.bat validator import <your key stores folder>
-```
 
-or
+- List your key stores in your wallet
+  
+  ```shell
+  agora.bat validator accounts list
+  ```
 
-```shell
-agora.bat validator accounts import <your key stores folder>
-```
 
-List your key stores in your wallet
+- Backup your key stores in your wallet
 
-```shell
-agora.bat validator accounts list
-```
+  ```shell
+  agora.bat validator accounts backup <folder>
+  ```
+  `<folder>` is where the backup key is stored. The default folder is `./backup-wallet`
 
-Run validator
+### Validator execution for Windows
 
-```shell
-agora.bat validator run
-```
+- Run validator
+  
+  ```shell
+  agora.bat validator run
+  ```
 
-Voluntary exit of the validator
+### Validator exit for Windows
 
-```shell
-agora.bat validator voluntary-exit
-```
+- Voluntary exit of the validator
+  
+  ```shell
+  agora.bat validator exit
+  ```
 
-Generate the SignedBLSToExecutionChange data to enable withdrawals
+### Validator withdrawals for Windows
 
-```shell
-agora.bat validator generate-bls-to-execution-change <SignedBLSToExecutionChange data folder>
-```
-The default data folder is `./root/bls_to_execution_changes`
+- Generate the SignedBLSToExecutionChange data to enable withdrawals
 
-The data folder in the command below is `./root/bls2exec`
-```shell
-agora.bat validator generate-bls-to-execution-change bls2exec
-```
+  ```shell
+  agora.bat validator generate-bls-to-execution-change <folder>
+  ```
+  `<folder>` is where the SignedBLSToExecutionChange data is stored. The default folder is `./bls_to_execution_changes`
 
-Send the SignedBLSToExecutionChange data to enable withdrawals
-```shell
-agora.bat validator withdraw <SignedBLSToExecutionChange data folder>
-```
-The default data folder is `./root/bls_to_execution_changes`
 
-The data folder in the command below is `./root/bls2exec`
-```shell
-agora.bat validator withdraw bls2exec
-```
+- Send the SignedBLSToExecutionChange data to enable withdrawals
+
+  ```shell
+  agora.bat validator withdraw <folder>
+  ```
+  `<folder>` is where the SignedBLSToExecutionChange data is stored. The default folder is `./bls_to_execution_changes`
+  
+
+### Validator export & import slashing protection history for Windows
+
+- export
+
+  ```shell
+  ./agora.bat validator slashing-protection-history export <folder>
+  ```
+  `<folder>` is where the slashing protection history data is stored. The default folder is `./slashing-protection-export`
+
+
+- import
+
+  ```shell
+  ./agora.bat validator slashing-protection-history import <folder>
+  ```
+  `<folder>` is where the slashing protection history data is stored. The default folder is `./slashing-protection-export`
+
 
 ### Using docker-compose for Windows
 

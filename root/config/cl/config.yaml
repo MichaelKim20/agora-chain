@@ -5,6 +5,6 @@ contract-deployment-block: 8
 rpc-host: 0.0.0.0
 monitoring-host: 0.0.0.0
 grpc-gateway-host: 0.0.0.0
-datadir: /root/chain/cl/
-execution-endpoint: /root/chain/el/geth.ipc
+datadir: /agora-chain/root/chain/cl/
+execution-endpoint: /agora-chain/root/chain/el/geth.ipc
 
