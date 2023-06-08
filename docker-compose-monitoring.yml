@@ -27,6 +27,7 @@ services:
         max-size: "100m"
 
   agora-cl-node:
+    platform: linux/amd64
     container_name: agora-cl-node
     image: bosagora/agora-cl-node:agora_v4.0.5-ceb45d
     ports:
@@ -58,6 +59,7 @@ services:
         max-size: "100m"
 
   agora-cl-validator:
+    platform: linux/amd64
     container_name: agora-cl-validator
     image: bosagora/agora-cl-validator:agora_v4.0.5-ceb45d
     ports:

@@ -80,6 +80,7 @@ if "%~1"=="el-node" (
         -v %cd%\root\:/root ^
         -p 3500:3500 -p 4000:4000 -p 8080:8080 -p 13000:13000 -p 12000:12000/udp ^
         --name cl-node --rm ^
+        --platform linux/amd64 ^
         bosagora/agora-cl-node:agora_v4.0.5-ceb45d ^
         --chain-config-file=/root/config/cl/chain-config.yaml ^
         --config-file=/root/config/cl/config.yaml ^
@@ -112,6 +113,7 @@ if "%~1"=="el-node" (
             docker run -it ^
             -v %cd%\root\:/root ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             accounts import ^
             --chain-config-file=/root/config/cl/chain-config.yaml ^
@@ -127,6 +129,7 @@ if "%~1"=="el-node" (
           -p 8081:8081 ^
           --network="host" ^
           --name cl-validator --rm ^
+          --platform linux/amd64 ^
           bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
           --chain-config-file=/root/config/cl/chain-config.yaml ^
           --config-file=/root/config/cl/config.yaml ^
@@ -152,6 +155,7 @@ if "%~1"=="el-node" (
                 docker run -it ^
                 -v %cd%\root\:/root ^
                 --name cl-validator --rm ^
+                --platform linux/amd64 ^
                 bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
                 accounts import ^
                 --accept-terms-of-use ^
@@ -167,6 +171,7 @@ if "%~1"=="el-node" (
             -v %cd%\root\:/root ^
             --network=host ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             accounts list ^
             --accept-terms-of-use ^
@@ -179,6 +184,7 @@ if "%~1"=="el-node" (
             -v %cd%\root\:/root ^
             --network=host ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             accounts backup ^
             --accept-terms-of-use ^
@@ -202,6 +208,7 @@ if "%~1"=="el-node" (
         -v %cd%\root\:/root ^
         --net=bosagora_network ^
         --name cl-ctl --rm ^
+        --platform linux/amd64 ^
         bosagora/agora-cl-ctl:agora_v4.0.5-ceb45d ^
         validator exit ^
         --wallet-dir=/root/wallet ^
@@ -243,6 +250,7 @@ if "%~1"=="el-node" (
         -v %cd%\root\:/root ^
         --net=bosagora_network ^
         --name cl-ctl --rm ^
+        --platform linux/amd64 ^
         bosagora/agora-cl-ctl:agora_v4.0.5-ceb45d ^
         validator withdraw ^
         --chain-config-file=/root/config/cl/chain-config.yaml ^
@@ -260,6 +268,7 @@ if "%~1"=="el-node" (
             -v %cd%\root\:/root ^
             --network=host ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             slashing-protection-history export ^
             --accept-terms-of-use ^
@@ -273,6 +282,7 @@ if "%~1"=="el-node" (
             -v %cd%\root\:/root ^
             --network=host ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             slashing-protection-history import ^
             --accept-terms-of-use ^
@@ -297,6 +307,7 @@ if "%~1"=="el-node" (
             -v %cd%\root\:/root ^
             --network=host ^
             --name cl-validator --rm ^
+            --platform linux/amd64 ^
             bosagora/agora-cl-validator:agora_v4.0.5-ceb45d ^
             wallet create ^
             --accept-terms-of-use ^
