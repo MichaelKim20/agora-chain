@@ -13,11 +13,11 @@
     "londonBlock": 0,
     "arrowglacierBlock": 0,
     "grayGlacierBlock": 0,
-    "mergeNetsplitBlock": 70,
-    "terminalTotalDifficulty": 160,
+    "mergeNetsplitBlock": 115,
+    "terminalTotalDifficulty": 250,
     "TerminalTotalDifficultyPassed": true,
     "clique": {
-      "period": 14,
+      "period": 5,
       "epoch": 30000
     },
     "bosagoraBlock": 100,
@@ -26,7 +26,7 @@
       "commonsBudgetReward": 120000000000000000000,
       "lastCommonsBudgetRewardBlock": 15000100
     },
-    "shanghaiTime": 1686482822
+    "shanghaiTime": 1689670358
   },
   "difficulty": "1",
   "gasLimit": "8000000",

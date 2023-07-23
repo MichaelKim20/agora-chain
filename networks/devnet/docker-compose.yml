@@ -29,7 +29,7 @@ services:
   agora-cl-node:
     platform: linux/amd64
     container_name: agora-cl-node
-    image: bosagora/agora-cl-node:v2.0.0
+    image: bosagora/agora-cl-node:agora_v4.0.5-32c8fd
     ports:
       - "3500:3500"
       - "4000:4000"
@@ -61,7 +61,7 @@ services:
   agora-cl-validator:
     platform: linux/amd64
     container_name: agora-cl-validator
-    image: bosagora/agora-cl-validator:v2.0.0
+    image: bosagora/agora-cl-validator:agora_v4.0.5-32c8fd
     ports:
       - "8081:8081"
     volumes:
